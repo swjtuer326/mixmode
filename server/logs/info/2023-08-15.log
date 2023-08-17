@@ -1,0 +1,16 @@
+2023-08-15 10:39:37	INFO	common/logger.go:110	sophgo.com/mixmode/utils/common.InitLogger	初始化zap日志完成!
+2023-08-15 10:39:37	INFO	common/validator.go:27	sophgo.com/mixmode/utils/common.InitValidate	初始化validator.v10数据校验器完成
+2023-08-15 10:40:12	INFO	common/logger.go:110	sophgo.com/mixmode/utils/common.InitLogger	初始化zap日志完成!
+2023-08-15 10:40:12	INFO	common/validator.go:27	sophgo.com/mixmode/utils/common.InitValidate	初始化validator.v10数据校验器完成
+2023-08-15 10:40:42	INFO	common/logger.go:110	sophgo.com/mixmode/utils/common.InitLogger	初始化zap日志完成!
+2023-08-15 10:40:42	INFO	common/validator.go:27	sophgo.com/mixmode/utils/common.InitValidate	初始化validator.v10数据校验器完成
+2023-08-15 10:40:42	INFO	routes/a_routes.go:29	sophgo.com/mixmode/routes.InitRoutes	初始化路由完成！
+2023-08-15 10:40:42	INFO	server/main.go:58	main.main	Server is running at 0.0.0.0:8899/
+2023-08-15 10:49:22	INFO	server/main.go:69	main.main	Shutting down server...
+2023-08-15 10:49:22	INFO	server/main.go:79	main.main	Server exiting!
+2023-08-15 16:55:11	INFO	common/logger.go:110	sophgo.com/mixmode/utils/common.InitLogger	初始化zap日志完成!
+2023-08-15 16:55:11	INFO	common/validator.go:27	sophgo.com/mixmode/utils/common.InitValidate	初始化validator.v10数据校验器完成
+2023-08-15 16:55:11	INFO	routes/a_routes.go:29	sophgo.com/mixmode/routes.InitRoutes	初始化路由完成！
+2023-08-15 16:55:11	INFO	server/main.go:58	main.main	Server is running at 0.0.0.0:8899/
+2023-08-16 12:48:34	INFO	server/main.go:69	main.main	Shutting down server...
+2023-08-16 12:48:34	INFO	server/main.go:79	main.main	Server exiting!

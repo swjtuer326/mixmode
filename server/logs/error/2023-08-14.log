@@ -1,0 +1,3 @@
+2023-08-14 15:10:22	PANIC	common/casbin.go:19	sophgo.com/mixmode/utils/common.InitCasbinEnforcer	初始化Casbin失败：open rbac_model.conf: no such file or directory
+2023-08-14 15:13:32	FATAL	server/main.go:57	main.main.func1	listen: listen tcp 0.0.0.0:8888: bind: address already in use
+
