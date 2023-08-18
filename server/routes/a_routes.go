@@ -26,6 +26,7 @@ func InitRoutes() *gin.Engine {
 	InitBaseRoutes(apiGroup) // 注册基础路由, 不需要jwt认证中间件,不需要casbin中间件
 	InitSystemInfoRoutes(apiGroup)
 	InitBm1684xInfoRoutes(apiGroup)
+	InitSophonTestRoutes(apiGroup)
 
 	common.Log.Info("初始化路由完成！")
 	return r

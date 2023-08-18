@@ -11,4 +11,5 @@ var (
 	OperationLog = &OperationLogLogic{}
 	SystemInfo   = &SystemInfoLogic{}
 	Bm1684xInfo  = &Bm1684xInfoLogic{}
+	SophonTest   = &SophonTestLogic{}
 )

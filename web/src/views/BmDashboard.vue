@@ -1,138 +1,151 @@
 <template>
-    <el-card>
-      <div id="temperature"></div>
-    </el-card>
-  </template>
+  <el-card class="card_item">
+    <el-row :gutter="2">
+    <el-col :span="6">
+      <div class="grid-content" >
+        <Gauge title="芯片温度" :value="panelData.temChip" max=100 value-format="{value} °C"/>
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="grid-content" >
+        <Gauge title="主板温度" :value="panelData.temBoard" max=100 value-format="{value} °C"/> 
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="grid-content" >
+        <Gauge title="整机功率" :value="panelData.powerBoard" max=50 value-format="{value} W"/>
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="grid-content" >
+        <Gauge title="TPU功率" :value="panelData.powerTPU" max=30 value-format="{value} W"/>
+      </div>
+    </el-col>
+  </el-row>
+  </el-card>
+  <br>
+  <el-card>
+    <DynamicLineChart title="温度曲线" max=100 line1name="芯片温度" line2name="主板温度" interval="10000" :line1data="temData.chip" :line2data="temData.board"/>
+  </el-card>
+  <br>
+  <el-card>
+    <DynamicLineChart title="功耗曲线" max=50 line1name="TPU功率" line2name="整机功率" interval="10000" :line1data="powerData.tpu" :line2data="powerData.board"/>
+  </el-card>
   
-  <script setup>
-  import * as echarts from "echarts"
-  import { onMounted, onUnmounted } from 'vue'
-  
-  let myChart = null
-  
-  onMounted(() => {
-      // 基于准备好的dom，初始化echarts实例
-      myChart = echarts.init(document.getElementById('temperature'))
-  
-      // 指定图表的配置项和数据
-      const option = {
-        title: {
-          text: '系统折线图'
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#6a7985'
-            }
-          }
-        },
-        legend: {
-          data: ['新增注册', '付费用户', '活跃用户', '订单数', '当日总收入']
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: [
-          {
-            type: 'category',
-            boundaryGap: false,
-            data: ['2021-03-11', '2021-03-12', '2021-03-13', '2021-03-14', '2021-03-15', '2021-03-16', '2021-03-17']
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value'
-          }
-        ],
-        series: [
-          {
-            name: '新增注册',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            emphasis: {
-              focus: 'series'
-            },
-            data: [120, 132, 101, 134, 90, 230, 210]
-          },
-          {
-            name: '付费用户',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            emphasis: {
-              focus: 'series'
-            },
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name: '活跃用户',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            emphasis: {
-              focus: 'series'
-            },
-            data: [150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name: '订单数',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            emphasis: {
-              focus: 'series'
-            },
-            data: [320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-            name: '当日总收入',
-            type: 'line',
-            stack: '总量',
-            label: {
-              show: true,
-              position: 'top'
-            },
-            areaStyle: {},
-            emphasis: {
-              focus: 'series'
-            },
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
-          }
-        ]
-      }
-  
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option)
-  })
-  onUnmounted(() => {
-    myChart.dispose()
-  })
-  </script>
-  
-  <style scoped>
-    .introduce .order {
-      display: flex;
-      margin-bottom: 50px;
+  <!-- <TemperaturePanel :title="title" :value="tem"/> -->
+</template>
+
+<script setup>
+import * as echarts from "echarts"
+import { onMounted, onUnmounted, ref, reactive} from 'vue'
+import Gauge from "../components/Gauge.vue";
+import DynamicLineChart from "../components/DynamicLineChart.vue";
+import { getTemData , getPowerData} from "@/api/bmInfo"
+
+let title = ref("1")
+const panelData  = reactive({
+  temChip: 0,
+  temBoard: 0,
+  powerTPU: 0,
+  powerBoard: 0
+})
+
+const temData = ref({
+  board: [],
+  chip: []
+})
+const powerData = ref({
+  board: [],
+  tpu: []
+})
+
+const reload = async(lastMinute,func) => {
+    let tem = await getTemData({lastMinute: lastMinute})
+    let power = await getPowerData({lastMinute: lastMinute})
+
+    // console.log(tem.data)
+    // console.log(power.data)
+    // console.log(tem.data.chipTemperature[tem.data.chipTemperature.length-1])
+    func(tem.data)
+    func(power.data)
+
+    panelData.powerBoard = power.data.boardPower[power.data.boardPower.length-1]
+    panelData.powerTPU = power.data.tpuPower[power.data.tpuPower.length-1]
+    panelData.temChip = tem.data.chipTemperature[tem.data.chipTemperature.length-1]
+    panelData.temBoard = tem.data.boardTemperature[tem.data.boardTemperature.length-1]
+
+}
+
+
+function refactorData(data){
+  if ("boardTemperature" in data) {
+    for (var i = 0; i < data.boardTemperature.length; i++) {
+      temData.value.board.push([data.time[i],data.boardTemperature[i]])
+      temData.value.chip.push([data.time[i],data.chipTemperature[i]])
     }
-    .introduce .order .order-item {
-      flex: 1;
-      margin-right: 20px;
+  }
+  else{
+    for (var i = 0; i < data.boardPower.length; i++) {
+      powerData.value.board.push([data.time[i],data.boardPower[i]])
+      powerData.value.tpu.push([data.time[i],data.tpuPower[i]])
     }
-    .introduce .order .order-item:last-child{
-      margin-right: 0;
-    }
-    #zoom {
-      min-height: 300px;
-    }
-  </style>
+  }
+}
+
+function updateData(data){
+  if ("boardTemperature" in data) {
+    temData.value.board.shift()
+    temData.value.chip.shift()
+    temData.value.board.push([data.time[0],data.boardTemperature[0]])
+    temData.value.chip.push([data.time[0],data.chipTemperature[0]])
+  }
+  else{
+    powerData.value.board.shift()
+    powerData.value.tpu.shift()
+    powerData.value.board.push([data.time[0],data.boardPower[0]])
+    powerData.value.tpu.push([data.time[0],data.tpuPower[0]])
+  }
+}
+
+reload(10, refactorData)
+// console.log(tem)
+// refactorData(tem.data)
+// refactorData(power.data)
+// console.log(temData.value)
+
+setInterval(function () {
+  panelData.value = (Math.random() * 100).toFixed(0)
+  reload(-1, updateData)
+  // reload(10, refactorData)
+  // console.log(temData.value.chip)
+}, 10000);
+
+</script>
+
+<style scoped>
+
+  /* #zoom {
+    height: calc(25vh);
+  } */
+  .card_item {
+    /* width: calc(80vw); */
+  }
+
+.el-row {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.el-row:last-child {
+  margin-bottom: 0;
+}
+.el-col {
+  border-radius: 4px;
+}
+
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+  width: calc(20vw);
+}
+
+</style>

@@ -3,12 +3,12 @@
     <el-row :gutter="2">
     <el-col :span="6">
       <div class="grid-content" >
-        <Gauge title="芯片温度" :value="panelData.temChip" max="100" value-format="{value} °C"/>
+        <Gauge title="芯片温度" :value="panelData.temChip" max=100 value-format="{value} °C"/>
       </div>
     </el-col>
     <el-col :span="6">
       <div class="grid-content" >
-        <Gauge title="主板温度" :value="panelData.temBoard" max="100" value-format="{value} °C"/> 
+        <Gauge title="主板温度" :value="panelData.temBoard" max=100 value-format="{value} °C"/> 
       </div>
     </el-col>
     <el-col :span="6">
@@ -25,11 +25,11 @@
   </el-card>
   <br>
   <el-card>
-    <DynamicLineChart title="温度曲线" line1name="芯片温度" line2name="主板温度" interval="10000" :line1data="temData.chip" :line2data="temData.board"/>
+    <DynamicLineChart title="温度曲线" max=100 line1name="芯片温度" line2name="主板温度" interval=10000 :line1data="temData.chip" :line2data="temData.board"/>
   </el-card>
   <br>
   <el-card>
-    <DynamicLineChart title="功耗曲线" line1name="TPU功率" line2name="整机功率" interval="10000" :line1data="powerData.tpu" :line2data="powerData.board"/>
+    <DynamicLineChart title="功耗曲线" max=50 line1name="TPU功率" line2name="整机功率" interval=10000 :line1data="powerData.tpu" :line2data="powerData.board"/>
   </el-card>
   
   <!-- <TemperaturePanel :title="title" :value="tem"/> -->

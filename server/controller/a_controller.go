@@ -18,6 +18,7 @@ var (
 	OperationLog = &OperationLogController{}
 	SystemInfo   = &SystemInfoController{}
 	Bm1684xInfo  = &Bm1684xInfoController{}
+	SophonTest   = &SophonTestController{}
 
 	validate = validator.New()
 	trans    ut.Translator

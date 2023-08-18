@@ -94,7 +94,7 @@ setInterval(function () {
         data: [
             {
                 name: props.title,
-                value: props.value
+                value: props.value.toFixed(2)
             }
         ]
         }

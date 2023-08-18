@@ -8,6 +8,7 @@ import { onMounted, onUnmounted, ref} from 'vue'
 
 const props = defineProps({
     interval: Number,
+    max: Number,
     title: String,
     line1name: String,
     line2name: String,
@@ -16,28 +17,6 @@ const props = defineProps({
 })
 const chartDom1 = ref()
 let myChart = null
-
-
-function randomData() {
-  now = new Date(+now+oneDay);
-  value = value + Math.random() * 21 - 10;
-  return {
-    name: now.toString(),
-    value: [
-      [now.getFullYear(), now.getMonth(), now.getDate()].join('-') + " " + [now.getHours(), now.getMinutes(), now.getSeconds()].join(':'),
-      Math.round(value)
-    ]
-  };
-}
-let temChip = [];
-let temBoard = [];
-let now = new Date(1997, 9, 3);
-let oneDay = 36 * 1000;
-let value = Math.random() * 1000;
-for (var i = 0; i < 1000; i++) {
-  temBoard.push(randomData());
-  temChip.push(randomData());
-}
 
 onMounted( () => {
     myChart = echarts.init(chartDom1.value);
@@ -75,7 +54,9 @@ onMounted( () => {
         boundaryGap: [0, '100%'],
         splitLine: {
         show: false
-        }
+        },
+        min: 0,
+        max: props.max
     },
     {
         type: 'value',
@@ -106,13 +87,7 @@ onMounted( () => {
 
 
 setInterval(function () {
-  for (var i = 0; i < 5; i++) {
-    temBoard.shift();
-    temChip.shift();
-    temBoard.push(randomData());
-    temChip.push(randomData());
-    // console.log(randomData())
-  }
+
   myChart.setOption({
     series: [
       {

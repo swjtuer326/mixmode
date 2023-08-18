@@ -27,7 +27,8 @@ export default ({ mode }) => defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://0.0.0.0:8899/', // 凡是遇到 /api 路径的请求，都映射到 target 属性
+        target: 'http://192.168.150.1:8899/', // 凡是遇到 /api 路径的请求，都映射到 target 属性
+        // target: 'http://0.0.0.0:8899/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '') // 重写 api 为 空，就是去掉它
       }

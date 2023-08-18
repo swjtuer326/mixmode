@@ -47,7 +47,7 @@ func (l Bm1684xInfoLogic) GetTemData(c *gin.Context, req interface{}) (interface
 			rspData.BoardTemperature[index] = v.BoardTemperature
 			rspData.ChipTemperature[index] = v.ChipTemperature
 		}
-		fmt.Println(rspData)
+		// fmt.Println(rspData)
 		return rspData, nil
 	}
 }

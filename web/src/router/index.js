@@ -5,17 +5,22 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/introduce'
+      redirect: '/dashboard'
     },
     {
-      path: '/introduce',
-      name: 'introduce',
-      component: () => import(/* webpackChunkName: "introduce" */ '../views/Introduce.vue')
+      path: '/bmDashboard',
+      name: 'bmDashboard',
+      component: () => import(/* webpackChunkName: "introduce" */ '../views/BmDashboard.vue')
     },
     {
       path: '/dashboard',
       name: 'dashboard',
       component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue')
+    },
+    {
+      path: '/sophonTest',
+      name: 'sophonTest',
+      component: () => import(/* webpackChunkName: "dashboard" */ '../views/SophonTest.vue')
     },
   ]
 })

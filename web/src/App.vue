@@ -21,8 +21,16 @@
               <span class="span">&nbsp;&nbsp; Dashboard</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/"><el-icon><Odometer /></el-icon>首页</el-menu-item>
-              <el-menu-item index="/dashboard"><el-icon><Plus /></el-icon>Dashboard</el-menu-item>
+              <el-menu-item index="/"><el-icon><Odometer /></el-icon>系统信息</el-menu-item>
+              <el-menu-item index="/bmDashboard"><el-icon><Plus /></el-icon>温度及功耗</el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
+          <el-sub-menu index="2">
+            <template #title>
+              <span class="span">&nbsp;&nbsp; 测试</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/sophonTest"><el-icon><Odometer /></el-icon>libsophon</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
         </el-menu>

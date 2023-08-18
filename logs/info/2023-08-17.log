@@ -1,0 +1,6 @@
+2023-08-17 14:43:05	INFO	common/logger.go:110	sophgo.com/mixmode/utils/common.InitLogger	初始化zap日志完成!
+2023-08-17 14:43:05	INFO	common/validator.go:27	sophgo.com/mixmode/utils/common.InitValidate	初始化validator.v10数据校验器完成
+2023-08-17 14:43:05	INFO	routes/a_routes.go:30	sophgo.com/mixmode/routes.InitRoutes	初始化路由完成！
+2023-08-17 14:43:05	INFO	server/main.go:60	main.main	Server is running at 0.0.0.0:8899/
+2023-08-17 15:10:02	INFO	server/main.go:71	main.main	Shutting down server...
+2023-08-17 15:10:02	INFO	server/main.go:81	main.main	Server exiting!
